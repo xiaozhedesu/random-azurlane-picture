@@ -134,7 +134,7 @@ namespace Task {
   }
 }
 
-export function apply(ctx: Context) {
+export function apply(ctx: Context, config: Config) {
   // 开启定时任务
   Task.start();
 
@@ -147,9 +147,10 @@ export function apply(ctx: Context) {
     .action(({ session }) => {
       const index = randomIndex(mangas.length)
       const mangaData = mangas[index];
-      console.log(index)
 
-      session.send(`当前图片：${mangaData.title}`);
+      if (config.showInfo) {
+        session.send(`当前图片：${mangaData.title}`);
+      }
       session.send(h('img', { src: mangaData.link }))
     })
 }
